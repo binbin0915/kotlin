@@ -1,0 +1,1 @@
+include ':takeout1.6', ':mvp', ':alipay_demo', ':gaodedemo', ':testmap36'

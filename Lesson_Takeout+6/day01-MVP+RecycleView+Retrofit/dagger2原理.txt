@@ -1,0 +1,29 @@
+1.必须要挂载module，不能为空
+public HomeFragmentComponent build() {
+      if (homeFragmentModule == null) {
+        throw new IllegalStateException(
+            HomeFragmentModule.class.getCanonicalName() + " must be set");
+      }
+      return new DaggerHomeFragmentComponent(this);
+    }
+2.初始化initialize(builder)，创建提供器和注入器;
+    this.provideHomeFragmentPresenterProvider =
+        HomeFragmentModule_ProvideHomeFragmentPresenterFactory.create(builder.homeFragmentModule);
+
+    this.homeFragmentMembersInjector =
+        HomeFragment_MembersInjector.create(provideHomeFragmentPresenterProvider);
+
+3.注入流程（取出presenter，赋值给成员变量）
+@Override
+  public void inject(HomeFragment homeFragment) {
+    homeFragmentMembersInjector.injectMembers(homeFragment);
+  }
+
+
+ @Override
+  public void injectMembers(HomeFragment instance) {
+    if (instance == null) {
+      throw new NullPointerException("Cannot inject members into a null reference");
+    }
+    instance.homeFragmentPresenter = homeFragmentPresenterProvider.get();
+  }

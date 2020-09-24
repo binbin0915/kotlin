@@ -1,0 +1,9 @@
+  if (selectPosition == position) {
+                itemView.setBackgroundColor(Color.WHITE);
+                mType.setTextColor(Color.BLACK);
+                mType.setTypeface(Typeface.DEFAULT_BOLD);
+            } else {
+                itemView.setBackgroundColor(Color.parseColor("#b9dedcdc"));
+                mType.setTextColor(Color.GRAY);
+                mType.setTypeface(Typeface.DEFAULT);
+            }

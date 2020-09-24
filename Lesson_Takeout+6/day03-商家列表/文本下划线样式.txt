@@ -1,0 +1,1 @@
+mTvOldprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);

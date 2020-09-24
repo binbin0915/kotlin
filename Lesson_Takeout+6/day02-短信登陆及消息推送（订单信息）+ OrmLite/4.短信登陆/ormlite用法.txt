@@ -1,0 +1,22 @@
+ //1.创建helper
+                TakeoutOpenHelper openHelper = TakeoutOpenHelper.getsInstance(TakeoutApp.sInstance);
+                //2.创建关系型数据库连接
+                databaseConnection = new AndroidDatabaseConnection(openHelper.getWritableDatabase(),true);
+                //3.开启事务点，
+                start = databaseConnection.setSavePoint("start");
+                //4.开启Dao,按bean的方式插入
+                Dao<User, Integer> dao = openHelper.getDao(User.class);
+                dao.setAutoCommit(databaseConnection, false);
+
+                User oldUser = dao.queryForId(user.getId());
+                if(oldUser!=null){
+                    //只是更新老用户
+                    Log.e("sms", "只是更新老用户");
+                    dao.update(user);
+                }else{
+                    //新用户登录
+                    dao.create(user);
+                }
+                databaseConnection.commit(start);
+
+要先开启事务，再设置事务提交未手动。
